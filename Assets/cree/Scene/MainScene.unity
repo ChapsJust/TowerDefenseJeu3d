@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 867537083}
   - component: {fileID: 867537082}
   - component: {fileID: 867537080}
+  - component: {fileID: 867537084}
   m_Layer: 0
   m_Name: TopDownCamera
   m_TagString: Untagged
@@ -368,6 +369,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &867537084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867537079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bee4c51d5c0fc54eaf20665f16fe235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topCamera: {fileID: 867537083}
+  speed: 10
 --- !u!1001 &1317254131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -526,6 +541,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2e75de6a-a46b-45e3-8643-69590ea34dea
     m_ActionName: 'Joueur/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 867537084}
+        m_TargetAssemblyTypeName: JoueurTopCamera, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fc4fd4cf-f5ca-4a07-a648-b76dacae5b26
+    m_ActionName: 'TopView/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Joueur
@@ -545,6 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fpsCamera: {fileID: 1657714350}
   topCamera: {fileID: 867537082}
+  playerInput: {fileID: 1317254134}
 --- !u!54 &1317254136
 Rigidbody:
   m_ObjectHideFlags: 0

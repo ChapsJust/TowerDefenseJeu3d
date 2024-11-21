@@ -15,7 +15,6 @@ public class JoueurFpsCamera : MonoBehaviour
     private Vector2 sourisInput = Vector2.zero;
 
     private float xRotation = 0f;
-    private float smoothPitchVelocity = 0f;
 
     private void Start()
     {

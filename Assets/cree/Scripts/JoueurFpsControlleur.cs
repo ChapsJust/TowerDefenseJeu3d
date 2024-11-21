@@ -15,11 +15,6 @@ public class JoueurFpsControlleur : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         MoveJoueur();
