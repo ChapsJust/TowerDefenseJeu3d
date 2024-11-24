@@ -12,7 +12,18 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void Start()
     {
-        
+        StartCoroutine(WaitForPathAndSpawn());
+    }
+
+    private IEnumerator WaitForPathAndSpawn()
+    {
+        while (cheminManager.cheminPositions == null || cheminManager.cheminPositions.Count == 0)
+        {
+            yield return null; 
+        }
+
+        Debug.Log("Le Chemin est correctement créer spawn d'enemy débuter");
+        StartCoroutine(DelaiSpawn());
     }
 
     private IEnumerator DelaiSpawn()
@@ -29,7 +40,13 @@ public class EnemySpawnerManager : MonoBehaviour
         if (cheminManager.cheminPositions.Count > 0)
         {
             Vector3 spawnPosition = cheminManager.cheminPositions[0];
-            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+            EnemyController enemyController = enemy.GetComponent<EnemyController>();
+            if (enemyController != null)
+                enemyController.Initialize(cheminManager.cheminPositions);
+            else
+                Debug.LogError("Probleme aussi frérot :(");
         }
         else
         {

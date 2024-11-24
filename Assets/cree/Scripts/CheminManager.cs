@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CheminManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class CheminManager : MonoBehaviour
     private float prefabsSize;
 
     private GameObject[,] grid;
+    private int curX;
+    private int curY;
+    private int exDirection;
 
     public List<Vector3> cheminPositions = new List<Vector3>();
 
@@ -23,6 +27,7 @@ public class CheminManager : MonoBehaviour
     {
         GenerationGrid();
         GenerationChemin();
+        Debug.Log(cheminPositions.Count);
     }
 
     private void GenerationGrid()
@@ -41,56 +46,57 @@ public class CheminManager : MonoBehaviour
 
     private void GenerationChemin()
     {
-        int x = 0;
-        int y = Random.Range(0, hauteurGrid);
-        int ancienY = y;
+        curX = 0;
+        curY = Random.Range(0, hauteurGrid);
+        exDirection = 0;
 
-        while(x < largeurGrid)
+        int targetX = largeurGrid;
+        int prevDirection = 0;
+
+        while(curX< largeurGrid) 
         {
-            int direction = 0;
+            Vector3 position = new Vector3(curX * prefabsSize, 0, curY * prefabsSize);
+            cheminPositions.Add(position);
+            Instantiate(cheminPrefab, position, Quaternion.identity, transform);
 
-            if(x < largeurGrid - 1)
+            int direction = ProchaineDirection();
+
+            if (direction == 0)
             {
-                direction = Random.Range(0, 3);
-
-                if (direction == 1 && y < hauteurGrid - 1)
-                    y++;
-                else if (direction == 2 && y > 0)
-                    y--;
-                else
-                    direction = 0;
+                curX++;
             }
-            RemplacerSolParChemin(x, y, ancienY);
-            ancienY = y;
-            x++;
+            if (direction == 1 && curY > 0)
+            {
+                curY--;
+            }
+            if (direction == 2 && curY < hauteurGrid - 1) 
+            {
+                curY++;
+            }
+
+            if (prevDirection != 0 && direction != prevDirection)
+            {
+                Vector3 coinPosition = new Vector3(curX * prefabsSize, 0, curY * prefabsSize);
+                cheminPositions.Add(coinPosition);
+                Instantiate(cheminPrefab, coinPosition, Quaternion.identity, transform);
+            }
+
+            prevDirection = direction;
         }
     }
 
-    private void RemplacerSolParChemin(int x, int y, int ancienY)
+    private int ProchaineDirection()
     {
-        if(grid[x, y] != null)
-        {
-            Destroy(grid[x, y]);
-            Vector3 position = new Vector3(x * prefabsSize, 0, y * prefabsSize);
-            grid[x, y] = Instantiate(cheminPrefab, position, Quaternion.identity, transform);
+        List<int> directionsPossibles = new List<int> { 0 };
 
-            cheminPositions.Add(position);
-        }
+        if (curY > 0) directionsPossibles.Add(1);
 
-        if(ancienY != y && x - 1 >= 0)
-        {
-           int yStart = Mathf.Min(ancienY, y);
-            int yFin = Mathf.Max(ancienY, y);
+        if (curY < hauteurGrid - 1) directionsPossibles.Add(2);
 
-            for(int i = yStart; i <= yFin; i++)
-            {
-                if (grid[x - 1, i] != null)
-                {
-                    Destroy(grid[x - 1, i]);
-                    Vector3 position = new Vector3((x -1) * prefabsSize, 0, i * prefabsSize);
-                    grid[x - 1, i] = Instantiate(cheminPrefab, position, Quaternion.identity, transform);
-                }
-            }
-        }
+        if (exDirection == 0) directionsPossibles.Add(0);
+
+        int direction = directionsPossibles[Random.Range(0, directionsPossibles.Count)];
+        exDirection = direction;
+        return direction;
     }
 }
