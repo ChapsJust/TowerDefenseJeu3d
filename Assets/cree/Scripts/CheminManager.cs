@@ -46,57 +46,34 @@ public class CheminManager : MonoBehaviour
 
     private void GenerationChemin()
     {
-        curX = 0;
-        curY = Random.Range(0, hauteurGrid);
-        exDirection = 0;
+        int curY = 0;
+        int prevY = curY;
 
-        int targetX = largeurGrid;
-        int prevDirection = 0;
-
-        while(curX< largeurGrid) 
+        for (int curX = 0;  curX < largeurGrid; curX++) 
         {
             Vector3 position = new Vector3(curX * prefabsSize, 0, curY * prefabsSize);
-            cheminPositions.Add(position);
-            Instantiate(cheminPrefab, position, Quaternion.identity, transform);
-
-            int direction = ProchaineDirection();
-
-            if (direction == 0)
+            if (!cheminPositions.Contains(position))
             {
-                curX++;
-            }
-            if (direction == 1 && curY > 0)
-            {
-                curY--;
-            }
-            if (direction == 2 && curY < hauteurGrid - 1) 
-            {
-                curY++;
+                cheminPositions.Add(position);
+                Instantiate(cheminPrefab, position, Quaternion.identity, transform);
             }
 
-            if (prevDirection != 0 && direction != prevDirection)
+            int direction = Random.Range(0, 3);
+
+            if (direction == 1 && curY > 0) curY--; 
+            if (direction == 2 && curY < hauteurGrid - 1) curY++;
+
+            if (curY != prevY)
             {
                 Vector3 coinPosition = new Vector3(curX * prefabsSize, 0, curY * prefabsSize);
-                cheminPositions.Add(coinPosition);
-                Instantiate(cheminPrefab, coinPosition, Quaternion.identity, transform);
+                if (!cheminPositions.Contains(coinPosition))
+                {
+                    cheminPositions.Add(coinPosition);
+                    Instantiate(cheminPrefab, coinPosition, Quaternion.identity, transform);
+                }
             }
 
-            prevDirection = direction;
+            prevY = curY;
         }
-    }
-
-    private int ProchaineDirection()
-    {
-        List<int> directionsPossibles = new List<int> { 0 };
-
-        if (curY > 0) directionsPossibles.Add(1);
-
-        if (curY < hauteurGrid - 1) directionsPossibles.Add(2);
-
-        if (exDirection == 0) directionsPossibles.Add(0);
-
-        int direction = directionsPossibles[Random.Range(0, directionsPossibles.Count)];
-        exDirection = direction;
-        return direction;
     }
 }
