@@ -15,19 +15,23 @@ public class CheminManager : MonoBehaviour
 
     [SerializeField]
     private float prefabsSize;
+    [SerializeField]
+    private GameObject turretPlaceholderPrefab;
 
     private GameObject[,] grid;
     private int curX;
     private int curY;
     private int exDirection;
-
+    
+    public List<Vector3> turretPositions = new List<Vector3>();
+    
     public List<Vector3> cheminPositions = new List<Vector3>();
 
     private void Start()
     {
         GenerationGrid();
         GenerationChemin();
-        Debug.Log(cheminPositions.Count);
+        PlaceTurretPlaceholders();
     }
 
     private void GenerationGrid()
@@ -46,7 +50,7 @@ public class CheminManager : MonoBehaviour
 
     private void GenerationChemin()
     {
-        int curY = 0;
+        int curY = 5;
         int prevY = curY;
 
         for (int curX = 0;  curX < largeurGrid; curX++) 
@@ -75,5 +79,51 @@ public class CheminManager : MonoBehaviour
 
             prevY = curY;
         }
+    }
+
+    private void PlaceTurretPlaceholders()
+    {
+        int turretCount = 4; 
+        int spacing = Mathf.Max(1, Mathf.RoundToInt((float)cheminPositions.Count / turretCount)); 
+        int placerTurret = 0;
+
+        for (int i = 0; i < cheminPositions.Count; i += spacing)
+        {
+            if (placerTurret >= turretCount) break; 
+
+            Vector3 cheminPosition = cheminPositions[i];
+
+            List<Vector3> possibleTurretPositions = new List<Vector3>
+        {
+            cheminPosition + new Vector3(prefabsSize, 0, 0), // Droit
+            cheminPosition + new Vector3(-prefabsSize, 0, 0), // Gauche
+            cheminPosition + new Vector3(0, 0, prefabsSize), // Up
+            cheminPosition + new Vector3(0, 0, -prefabsSize) // Down
+        };
+
+            foreach (var pos in possibleTurretPositions)
+            {
+                if (PositionValideTurret(pos))
+                {
+                    turretPositions.Add(pos);
+                    Instantiate(turretPlaceholderPrefab, pos, Quaternion.identity, transform);
+                    placerTurret++;
+                    break; 
+                }
+            }
+        }
+    }
+
+
+    private bool PositionValideTurret(Vector3 position)
+    {
+        int gridX = Mathf.RoundToInt(position.x / prefabsSize);
+        int gridY = Mathf.RoundToInt(position.z / prefabsSize);
+
+        //Vérification si conditions respecter turrets bien placé
+        return gridX >= 0 && gridX < largeurGrid &&
+               gridY >= 0 && gridY < hauteurGrid &&
+               !cheminPositions.Contains(position) &&
+               !turretPositions.Contains(position);
     }
 }

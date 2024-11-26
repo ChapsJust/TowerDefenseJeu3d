@@ -9,4 +9,7 @@ public class TurretScriptableObject : ScriptableObject
     public float distanceTir;
     public float frequenceTir;
     public GameObject prefab;
+
+    public TurretScriptableObject nextLevel;
+    public int sellValeur;
 }
