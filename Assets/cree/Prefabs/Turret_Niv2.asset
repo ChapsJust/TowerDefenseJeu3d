@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turretNom: Turret_Niv2
   cout: 0
-  damage: 0
-  distanceTir: 0
-  frequenceTir: 0
+  damage: 20
+  distanceTir: 25
+  frequenceTir: 5
   prefab: {fileID: 6249786534638669007, guid: 912eb84de7fa7e74b81f56b52a0afcf1, type: 3}
   nextLevel: {fileID: 0}
   sellValeur: 0

@@ -839,14 +839,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489086724}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e47570e172d4aa74fb5e4811da3f9d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2178898734005567224, guid: 20d8df35eaadbc649b103d3fee5a9d26, type: 3}
   cheminManager: {fileID: 404443130}
-  spawnIntervalle: 2
+  spawnIntervalle: 5
 --- !u!1 &1506691612
 GameObject:
   m_ObjectHideFlags: 0
