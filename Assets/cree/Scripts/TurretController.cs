@@ -5,7 +5,11 @@ public class TurretController : MonoBehaviour
     [SerializeField]
     private TurretScriptableObject turretScriptableObject;
     [SerializeField]
-    private Transform turretRotation;
+    private Transform turretRotationPart;
+    [SerializeField]
+    private GameObject projectilePrefab;
+    [SerializeField]
+    private Transform firePoint;
 
     private float frequqenceTir;
 
@@ -23,6 +27,7 @@ public class TurretController : MonoBehaviour
             RotateTurret(closestEnemy);
             if (frequqenceTir <= 0f)
             {
+                TirTurret(closestEnemy);
                 frequqenceTir = 1f / turretScriptableObject.frequenceTir;
             }
         }
@@ -55,11 +60,25 @@ public class TurretController : MonoBehaviour
 
     private void RotateTurret(Transform enemy)
     {
-        Vector3 direction = enemy.position - turretRotation.position;
+        Vector3 direction = enemy.position - turretRotationPart.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
 
-        Vector3 rotation = Quaternion.Lerp(turretRotation.rotation, lookRotation, Time.deltaTime * 50f).eulerAngles;
-        turretRotation.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        Vector3 rotation = Quaternion.Lerp(turretRotationPart.rotation, lookRotation, Time.deltaTime * 20f).eulerAngles;
+        turretRotationPart.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
+
+    private void TirTurret(Transform enemy)
+    {
+        if (projectilePrefab != null && firePoint != null)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+
+            ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
+            if (projectileController != null)
+            {
+                projectileController.Init(enemy, 10f, 10);
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()

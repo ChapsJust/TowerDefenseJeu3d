@@ -17,6 +17,6 @@ MonoBehaviour:
   damage: 10
   distanceTir: 15
   frequenceTir: 3
-  prefab: {fileID: 2029158941229660145, guid: 8657515a32a2c3f4291e0c0f77a32066, type: 3}
+  prefab: {fileID: 4791925917108346958, guid: 89c783ea6fed7694ab8beccea5c227b2, type: 3}
   nextLevel: {fileID: 11400000, guid: aa1aadf18c36d1c45bb1962542052661, type: 2}
-  sellValeur: 0
+  sellValeur: 10
