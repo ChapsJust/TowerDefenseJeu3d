@@ -154,6 +154,7 @@ MonoBehaviour:
   solPrefab: {fileID: 523571132}
   prefabsSize: 10
   turretPlaceholderPrefab: {fileID: 3789212263510519092, guid: 34001c5bbc10f73498be63f763e1595b, type: 3}
+  turretCount: 10
   turretPositions: []
   cheminPositions: []
 --- !u!4 &404443131
@@ -234,7 +235,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 648ffaa5c9a6a9745a09dafdd6ae1fd1, type: 2}
+  - {fileID: 2100000, guid: 8e6ad96a4a5f81342b019f00a3919743, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -411,7 +412,6 @@ GameObject:
   - component: {fileID: 867537083}
   - component: {fileID: 867537082}
   - component: {fileID: 867537080}
-  - component: {fileID: 867537084}
   m_Layer: 0
   m_Name: TopDownCamera
   m_TagString: Untagged
@@ -523,26 +523,12 @@ Transform:
   m_GameObject: {fileID: 867537079}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalPosition: {x: 0, y: 21.71, z: 0.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1317254132}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &867537084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867537079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bee4c51d5c0fc54eaf20665f16fe235, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topCamera: {fileID: 867537083}
-  speed: 10
 --- !u!1001 &1317254131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -601,6 +587,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 621729559427220630, guid: 4d5cc69746764844d8059be3ff371f2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1657714347}
+    - targetCorrespondingSourceObject: {fileID: 621729559427220630, guid: 4d5cc69746764844d8059be3ff371f2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 867537083}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8906412125985319298, guid: 4d5cc69746764844d8059be3ff371f2a, type: 3}
       insertIndex: -1
@@ -703,9 +692,9 @@ MonoBehaviour:
     m_ActionName: 'Joueur/Look[/Mouse/delta]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 867537084}
-        m_TargetAssemblyTypeName: JoueurTopCamera, Assembly-CSharp
-        m_MethodName: OnMove
+      - m_Target: {fileID: 1317254137}
+        m_TargetAssemblyTypeName: JoueurFpsControlleur, Assembly-CSharp
+        m_MethodName: OnSprint
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -715,8 +704,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: fc4fd4cf-f5ca-4a07-a648-b76dacae5b26
-    m_ActionName: 'TopView/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+    m_ActionId: ecd7c1b8-4751-4744-85c1-fa7a2a2e407f
+    m_ActionName: 'Joueur/Sprint[/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Joueur
@@ -736,7 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fpsCamera: {fileID: 1657714350}
   topCamera: {fileID: 867537082}
-  playerInput: {fileID: 1317254134}
+  playerBody: {fileID: 1625188430}
 --- !u!54 &1317254136
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -777,6 +766,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joueurBody: {fileID: 1797796913}
+  speed: 5
+  sprint: 12
 --- !u!136 &1317254138
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -878,6 +869,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1625188430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 974433733848211014, guid: 4d5cc69746764844d8059be3ff371f2a, type: 3}
+  m_PrefabInstance: {fileID: 1317254131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1657714346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,7 +1106,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 43c05f5bdea81ea4580556c730be4c9c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1180,7 +1176,6 @@ BoxCollider:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 867537083}
   - {fileID: 1317254131}
   - {fileID: 567580683}
   - {fileID: 2071141168}

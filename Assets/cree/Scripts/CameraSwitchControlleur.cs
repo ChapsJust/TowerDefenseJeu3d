@@ -8,16 +8,14 @@ public class CameraSwitchControlleur : MonoBehaviour
     [SerializeField]
     private Camera topCamera;
     [SerializeField]
-    private PlayerInput playerInput;
+    private GameObject playerBody;
 
     private bool estFpsView = true;
     public bool EstFpsView => estFpsView;
 
     void Start()
     {
-        fpsCamera.enabled = true;
-        topCamera.enabled = false;
-        playerInput.SwitchCurrentActionMap("Joueur");
+
     }
 
     public void OnCameraSwitch(InputAction.CallbackContext context)
@@ -27,15 +25,27 @@ public class CameraSwitchControlleur : MonoBehaviour
             //Permet de changer la caméra qui doit être affiché 
             estFpsView = !estFpsView;
 
-            //Caméra
-            fpsCamera.enabled = estFpsView;
-            topCamera.enabled = !estFpsView;
-
             if (estFpsView)
-                playerInput.SwitchCurrentActionMap("Joueur");
+                SwitchFps();
             else
-                playerInput.SwitchCurrentActionMap("TopView");
+                SwitchTop();
         }
+    }
+
+    private void SwitchFps()
+    {
+        fpsCamera.enabled = true;
+        topCamera.enabled = false;
+        if (playerBody != null)
+            playerBody.SetActive(true);
+    }
+
+    private void SwitchTop()
+    {
+        fpsCamera.enabled = false;
+        topCamera.enabled = true;
+        if (playerBody != null)
+            playerBody.SetActive(false);
     }
     
 }

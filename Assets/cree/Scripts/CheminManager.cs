@@ -17,11 +17,10 @@ public class CheminManager : MonoBehaviour
     private float prefabsSize;
     [SerializeField]
     private GameObject turretPlaceholderPrefab;
+    [SerializeField]
+    private int turretCount = 5; //Peut ne pas marcher si nombre abuser et map pas asssez grande
 
     private GameObject[,] grid;
-    private int curX;
-    private int curY;
-    private int exDirection;
     
     public List<Vector3> turretPositions = new List<Vector3>();
     
@@ -55,7 +54,7 @@ public class CheminManager : MonoBehaviour
 
         for (int curX = 0;  curX < largeurGrid; curX++) 
         {
-            Vector3 position = new Vector3(curX * prefabsSize, 0, curY * prefabsSize);
+            Vector3 position = new Vector3(curX * prefabsSize, 0.02f, curY * prefabsSize);
             if (!cheminPositions.Contains(position))
             {
                 cheminPositions.Add(position);
@@ -69,7 +68,7 @@ public class CheminManager : MonoBehaviour
 
             if (curY != prevY)
             {
-                Vector3 coinPosition = new Vector3(curX * prefabsSize, 0, curY * prefabsSize);
+                Vector3 coinPosition = new Vector3(curX * prefabsSize, 0.02f, curY * prefabsSize);
                 if (!cheminPositions.Contains(coinPosition))
                 {
                     cheminPositions.Add(coinPosition);
@@ -82,9 +81,8 @@ public class CheminManager : MonoBehaviour
     }
 
     private void PlaceTurretPlaceholders()
-    {
-        int turretCount = 4; 
-        int spacing = Mathf.Max(1, Mathf.RoundToInt((float)cheminPositions.Count / turretCount)); 
+    { 
+        int spacing = Mathf.Max(1, Mathf.RoundToInt((float)cheminPositions.Count / turretCount)); //Espacement éviter pendant génération tout collé sinon impossible
         int placerTurret = 0;
 
         for (int i = 0; i < cheminPositions.Count; i += spacing)

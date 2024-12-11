@@ -5,10 +5,16 @@ public class JoueurFpsControlleur : MonoBehaviour
 {
     [SerializeField]
     private Transform joueurBody;
+    [SerializeField]
+    private float speed = 5f;
+    [SerializeField]
+    private float sprint = 12f;
 
     private Rigidbody rb;
 
     private Vector2 mouvementInput;
+
+    private bool isSprinting;
 
     private void Awake()
     {
@@ -33,14 +39,23 @@ public class JoueurFpsControlleur : MonoBehaviour
 
         Vector3 direction = forward * mouvementInput.y + right * mouvementInput.x;
 
-        Vector3 mouvement = direction * 5f;
+        float currentSpeed = isSprinting ? sprint : speed;
+
+        Vector3 mouvement = direction * currentSpeed;
         rb.linearVelocity = new Vector3(mouvement.x, rb.linearVelocity.y, mouvement.z);
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("1");
         mouvementInput = context.action.ReadValue<Vector2>();
+    }
+
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            isSprinting = true;
+        else if (context.canceled)
+            isSprinting = false;
     }
 }
 
