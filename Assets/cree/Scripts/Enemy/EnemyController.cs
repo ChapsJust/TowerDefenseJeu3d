@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class EnemyController : MonoBehaviour
     private int cheminIndex = 0;
     [SerializeField]
     private float speed = 2f;
+    [SerializeField]
+    public int vie = 50;
 
     public void Initialize(List<Vector3> chemin)
     {
@@ -32,6 +35,16 @@ public class EnemyController : MonoBehaviour
             cheminIndex++;
             if(cheminIndex >= cheminPositions.Count)
                 Destroy(gameObject);
+        }
+    }
+
+    public void PrendreDegat(int domage)
+    {
+        vie -= domage;
+
+        if(vie < 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

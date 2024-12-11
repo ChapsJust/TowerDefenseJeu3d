@@ -25,8 +25,16 @@ public class ProjectileController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.position) < 0.1f)
         {
-            Destroy(gameObject) ;
-            // Prendre dégat
+            EnemyController enemyController = target.GetComponentInParent<EnemyController>();
+            if (enemyController != null)
+            {
+                enemyController.PrendreDegat(damage);
+                Destroy(gameObject); 
+            }
+            else
+            {
+                Debug.LogWarning($"WHAT ::::: {target.name}");
+            }
         }
     }
 }
