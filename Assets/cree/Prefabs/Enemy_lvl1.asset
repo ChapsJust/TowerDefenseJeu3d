@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8888bc5f86d624fa5fa3db62cf949a, type: 3}
+  m_Name: Enemy_lvl1
+  m_EditorClassIdentifier: 
+  enemyNom: 1
+  vie: 50
+  speed: 5
+  valeurPiece: 5
+  prefabEnnemy: {fileID: 2178898734005567224, guid: 20d8df35eaadbc649b103d3fee5a9d26, type: 3}

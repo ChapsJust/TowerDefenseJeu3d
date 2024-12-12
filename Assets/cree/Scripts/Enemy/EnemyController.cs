@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -10,20 +11,40 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float speed = 2f;
     [SerializeField]
-    public int vie = 50;
+    public int vie;
+    [SerializeField]
+    private EnemyScriptableObject enemyScriptableObject;
+    [SerializeField]
+    private Slider slider;
 
+    [SerializeField]
+    private GameObject player;
+    private JoueurFpsControlleur joueurFpsControlleur;
+
+    /// <summary>
+    /// Intialize l'ennemi
+    /// </summary>
+    /// <param name="chemin"></param>
     public void Initialize(List<Vector3> chemin)
     {
+        vie = enemyScriptableObject.vie;
         cheminPositions = new List<Vector3>(chemin);
+        joueurFpsControlleur = player.GetComponent<JoueurFpsControlleur>();
+
     }
 
     private void Update()
     {
         if(cheminPositions == null || cheminPositions.Count == 0)
             return;
+        if(slider != null ) 
+            slider.value = vie;
         SuivreChemin();
     }
 
+    /// <summary>
+    /// Fait en sorte que l'ennemie suive le bon chemin
+    /// </summary>
     private void SuivreChemin()
     {
         Vector3 target = cheminPositions[cheminIndex];
@@ -34,10 +55,17 @@ public class EnemyController : MonoBehaviour
         {
             cheminIndex++;
             if(cheminIndex >= cheminPositions.Count)
+            {
+                joueurFpsControlleur.Vie--;
                 Destroy(gameObject);
+            }
         }
     }
 
+    /// <summary>
+    /// Fait en sorte que L'ennemie recoit des dommages
+    /// </summary>
+    /// <param name="domage"></param>
     public void PrendreDegat(int domage)
     {
         vie -= domage;

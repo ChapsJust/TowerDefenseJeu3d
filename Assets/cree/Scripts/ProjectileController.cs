@@ -13,6 +13,9 @@ public class ProjectileController : MonoBehaviour
         damage = projectileDomage;
     }
 
+    /// <summary>
+    /// Permet de gérer le projectile dans sa trajectoire il va suivre le target recu en param et va suivre l'ennemie 
+    /// </summary>
     private void Update()
     {
         if (target == null) 

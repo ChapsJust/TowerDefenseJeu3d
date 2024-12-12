@@ -16,7 +16,7 @@ MonoBehaviour:
   cout: 30
   damage: 20
   distanceTir: 25
-  frequenceTir: 5
+  frequenceTir: 3
   prefab: {fileID: 2800976035175991567, guid: 7e5f2dc6ca5819a48a31b0b665bb7950, type: 3}
   nextLevel: {fileID: 0}
   sellValeur: 20

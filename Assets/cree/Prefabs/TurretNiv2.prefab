@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d91b761e21f2604faa7c80a6bb50536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretScriptableObject: {fileID: 11400000, guid: 9d5f2cf8ee0a87e4d98d6db0e64cf37f, type: 2}
+  turretScriptableObject: {fileID: 11400000, guid: aa1aadf18c36d1c45bb1962542052661, type: 2}
   turretRotationPart: {fileID: 3332395887071814003}
   projectilePrefab: {fileID: 266352679462204319, guid: bedfe1df9ba48024bad62e9dd62bc5eb, type: 3}
   firePoint: {fileID: 3679890363228601228}

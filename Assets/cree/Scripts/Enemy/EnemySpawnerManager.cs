@@ -15,6 +15,7 @@ public class EnemySpawnerManager : MonoBehaviour
         StartCoroutine(WaitForPathAndSpawn());
     }
 
+    //Vérification nécessaire sinon problème de crash cela vérifie le chemin est fait avant de faire spawn
     private IEnumerator WaitForPathAndSpawn()
     {
         while (cheminManager.cheminPositions == null || cheminManager.cheminPositions.Count == 0)
@@ -26,6 +27,7 @@ public class EnemySpawnerManager : MonoBehaviour
         StartCoroutine(DelaiSpawn());
     }
 
+    //Un intervalle entre chaque ennemie
     private IEnumerator DelaiSpawn()
     {
         while (true)
@@ -35,6 +37,9 @@ public class EnemySpawnerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Fonctiuon qui permet de faire spawn les ennemies a la bonne place et donne les positions du chemin
+    /// </summary>
     private void SpawnEnemy()
     {
         if (cheminManager.cheminPositions.Count > 0)

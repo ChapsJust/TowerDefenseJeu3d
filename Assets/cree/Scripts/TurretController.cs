@@ -33,6 +33,10 @@ public class TurretController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Permet de trouver lennemie le plus proche
+    /// </summary>
+    /// <returns></returns>
     private Transform TrouverEnemyPlusProche()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, turretScriptableObject.distanceTir);

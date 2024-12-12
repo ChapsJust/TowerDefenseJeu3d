@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,9 +17,26 @@ public class JoueurFpsControlleur : MonoBehaviour
 
     private bool isSprinting;
 
+
+    [SerializeField]
+    private int vie = 5;
+    public int Vie
+    {
+        get { return vie; }
+        set { vie = value; }
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        if(vie == 0)
+        {
+            Debug.Log("DEAD");
+        }
     }
 
     private void FixedUpdate()
@@ -26,6 +44,9 @@ public class JoueurFpsControlleur : MonoBehaviour
         MoveJoueur();
     }
 
+    /// <summary>
+    /// Fonction qui permet de géere déplacement du joueur
+    /// </summary>
     private void MoveJoueur()
     {
         Vector3 forward = joueurBody.forward;
