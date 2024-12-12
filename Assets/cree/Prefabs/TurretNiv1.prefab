@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4605376609189434039}
   - component: {fileID: 2041108264650280536}
+  - component: {fileID: 3700798049142835702}
   m_Layer: 0
   m_Name: TurretNiv1
   m_TagString: Untagged
@@ -49,6 +50,28 @@ MonoBehaviour:
   turretRotationPart: {fileID: 6635515165479401943}
   projectilePrefab: {fileID: 266352679462204319, guid: bedfe1df9ba48024bad62e9dd62bc5eb, type: 3}
   firePoint: {fileID: 6061094280341612609}
+--- !u!95 &3700798049142835702
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4791925917108346958}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 018cc94d6c5efb34183ceb1988fa345f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5411103330566034162
 GameObject:
   m_ObjectHideFlags: 0
